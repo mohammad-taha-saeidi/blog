@@ -1,0 +1,10 @@
+{% extends 'parent/base.html' %}
+{% block title %}Post lists{% endblock title %}
+{% block content %}
+<h1>Posts</h1>
+{% for post in posts %}
+<a href="{% url 'blog:post_detail' post.id %}"><h4>{{ post.title }}</h4></a>
+<p>{{ post.description | truncatewords:5 }}</p>
+<hr>
+{% endfor %}
+{% endblock content %}

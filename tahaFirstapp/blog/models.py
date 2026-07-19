@@ -1,0 +1,48 @@
+#moduls
+from datetime import timezone
+
+from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
+from django_jalali.db import models as jmodels
+
+#manager
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
+# Create your models here.
+class Post(models.Model):
+    class Status(models.TextChoices):
+        PUBLISHED = "PB" , "Published"
+        DRAFT = "DF" , "Draft"
+        Rejected = "R" , "Rejected"
+    #relations
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_post" , verbose_name = "نویسنده")
+    #data fields
+    title = models.CharField(max_length=250, verbose_name = "عنوان")
+    description = models.TextField(verbose_name = "توضیحات")
+    slug = models.SlugField(max_length=250)
+    #date
+    published = jmodels.jDateTimeField(default=timezone.now())
+    created = jmodels.jDateTimeField(auto_now_add=True, verbose_name = "زمان تولید")
+    updated = jmodels.jDateTimeField(auto_now=True, verbose_name = "زمان آپدیت")
+    #choices fields
+    status = models.CharField(max_length=2,
+                              choices=Status.choices,
+                              default=Status.DRAFT
+                              , verbose_name=" وضعیت پست"
+                              )
+
+    # objects = models.Manager()
+    objects = jmodels.jManager()
+    Published_Manager = PublishedManager()
+    class Meta:
+        ordering = ('-published',)
+        indexes = [
+        models.Index(fields=['-published']),
+        ]
+        verbose_name = "پست ها"
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.title
+
