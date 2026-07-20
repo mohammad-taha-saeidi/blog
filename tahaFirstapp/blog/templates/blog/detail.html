@@ -9,5 +9,5 @@
 <!--<p>{{post.published}}</p>-->
 <!--<p>{{date_time}}</p>-->
 <p>{{post.published|jformat:"%Y/%m/%d-(%H:%M)"}}</p>
-
+<a href="{% url 'blog:post' %}" style="text-decoration: none"><div class="post-det">Post List</div></a>
 {% endblock content %}
