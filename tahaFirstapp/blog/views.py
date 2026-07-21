@@ -8,7 +8,7 @@ def index(request):
     return render(request,'parent/base.html')
 def post(request):
     posts = Post.Published_Manager.all()
-    paginator = Paginator(posts,2)
+    paginator = Paginator(posts,3)
     page_number = request.GET.get('page',1)
     posts = paginator.page(page_number)
     context = {'posts':posts}

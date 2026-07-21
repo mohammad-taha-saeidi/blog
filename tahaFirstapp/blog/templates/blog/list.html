@@ -2,7 +2,7 @@
 {% block title %}Post lists{% endblock title %}
 {% block content %}
 <h1 style="text-align: center">Posts</h1>
-<ol style="--length: {{posts.count}}" role="list">
+<ol style="--length: 3; margin-bottom: 0; padding-bottom: 0;" role="list">
     {% for post in posts %}
     <li style="--i: {{forloop.counter}}">
 
@@ -13,5 +13,8 @@
     </li>
     {% endfor %}
 </ol>
-{% include 'partials/paginator.html' with page=posts %}
+<div class="pagination">
+    {% include 'partials/paginator.html' with page=posts %}
+</div>
+
 {% endblock content %}
