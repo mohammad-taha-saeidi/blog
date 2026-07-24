@@ -3,7 +3,7 @@ from django import forms
 
 #ticket form
 class TicketForm(forms.ModelForm):
-    SUBJECT_CHOICEs = (
+    SUBJECT_CHOICES = (
     ('گزارش', 'گزارش'),
     ('انتقاد', 'انتقاد'),
     ('پیشنهاد', 'پیشنهاد'),
@@ -12,5 +12,5 @@ class TicketForm(forms.ModelForm):
     name = forms.CharField(max_length=250 , required=True)
     email = forms.CharField(max_length=250)
     phone = forms.CharField(max_length=11 , required=True)
-    subject = forms.ChoiceField(choices=SUBJECT_CHOICEs)
+    subject = forms.ChoiceField(choices=SUBJECT_CHOICES)
 
