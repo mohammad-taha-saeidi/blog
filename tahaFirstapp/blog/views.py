@@ -1,5 +1,6 @@
-from django.shortcuts import render , HttpResponse , Http404 , get_object_or_404
-from .models import Post
+from django.shortcuts import render , HttpResponse , Http404 , get_object_or_404 , redirect
+from .models import *
+from .forms import *
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import  DetailView , ListView
