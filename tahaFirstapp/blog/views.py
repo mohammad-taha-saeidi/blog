@@ -55,4 +55,4 @@ def ticket(request):
             return redirect('blog:index')
     else:
         form = TicketForm()
-    return render(request, 'blog/ticket.html', {'form': form})
+    return render(request, 'forms/ticket.html', {'form': form})
