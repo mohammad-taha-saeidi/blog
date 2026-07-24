@@ -48,3 +48,11 @@ def ticket(request):
             ticket_obj = Ticket.objects.create()
             cd = form.cleaned_data
             ticket_obj.name = cd['name']
+            ticket_obj.email = cd['email']
+            ticket_obj.subject = cd['subject']
+            ticket_obj.phone = cd['phone']
+            ticket_obj.save()
+            return redirect('blog:index')
+    else:
+        form = TicketForm()
+    return render(request, 'blog/ticket.html', {'form': form})
