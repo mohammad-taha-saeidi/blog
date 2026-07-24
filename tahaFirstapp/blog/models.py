@@ -2,7 +2,7 @@
 from datetime import timezone
 
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone, module_loading
 from django.contrib.auth.models import User
 from django_jalali.db import models as jmodels
 from django.urls import reverse
@@ -47,4 +47,54 @@ class Post(models.Model):
         verbose_name_plural = verbose_name
     def __str__(self):
         return self.title
+
+class TicketForm(models.Model):
+    message = models.TextField()
+    name = models.CharField(max_length=250)
+    email = models.EmailField()
+    phone = models.CharField(max_length=11)
+    subject = models.CharField(max_length=250)
+
+    class Meta:
+        verbose_name = "تیکت ها"
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return self.subject
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
