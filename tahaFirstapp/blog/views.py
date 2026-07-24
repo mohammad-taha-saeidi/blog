@@ -47,6 +47,7 @@ def ticket(request):
         if form.is_valid():
             ticket_obj = Ticket.objects.create()
             cd = form.cleaned_data
+            ticket_obj.message = cd['message']
             ticket_obj.name = cd['name']
             ticket_obj.email = cd['email']
             ticket_obj.subject = cd['subject']

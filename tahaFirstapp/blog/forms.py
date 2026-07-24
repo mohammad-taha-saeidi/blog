@@ -1,8 +1,9 @@
 from django import forms
+from .models import *
 
 
 #ticket form
-class TicketForm(forms.ModelForm):
+class TicketForm(forms.Form):
     SUBJECT_CHOICES = (
     ('گزارش', 'گزارش'),
     ('انتقاد', 'انتقاد'),
