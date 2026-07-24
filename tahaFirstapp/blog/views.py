@@ -39,3 +39,12 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/detail.html'
+
+
+def ticket(request):
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            ticket_obj = Ticket.objects.create()
+            cd = form.cleaned_data
+            ticket_obj.name = cd['name']
