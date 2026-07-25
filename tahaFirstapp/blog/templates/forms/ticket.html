@@ -5,7 +5,7 @@
     {% csrf_token %}
 <!--    {{ form.as_p }}-->
     <label for="name">name : </label>
-    <input type="text" name="name" >
+    <input type="text" name="name" required {% if form.name.value %} value="{{form.name.value}}"{% endif %} >
     <br>
     <label for="email">email : </label>
     <input type="email" name="email" >
