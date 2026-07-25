@@ -4,18 +4,18 @@
 <form method="POST">
     {% csrf_token %}
 <!--    {{ form.as_p }}-->
-    <label for="name : ">name : </label>
+    <label for="name">name : </label>
     <input type="text" name="name" >
     <br>
-    <label for="email : ">email : </label>
+    <label for="email">email : </label>
     <input type="email" name="email" >
     <br>
 
-    <label for="phone : ">phone : </label>
+    <label for="phone">phone : </label>
     <input type="text" name="phone" >
     <br>
 
-    <label for="Text : ">Text : </label>
+    <label for="message">Text : </label>
     <textarea name="message"></textarea>
     <br>
 
@@ -27,6 +27,16 @@
 
     <input type="submit" value="Submit">
 </form>
-
+{% if form.errors %}
+    <p>لطفا خطا های زیر را اصلاح کنید</p>
+    <br>
+    {% for field in form %}
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <p>{{ field.label }} : {{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
 {% endblock content %}
 
