@@ -1,14 +1,19 @@
-from django.shortcuts import render , HttpResponse , Http404 , get_object_or_404 , redirect
+import email
+
+from django.shortcuts import render, HttpResponse, Http404, get_object_or_404, redirect
 from .models import *
 from .forms import *
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.views.generic import  DetailView , ListView
+from django.views.generic import DetailView, ListView
+
 
 # Create your views here.
 def index(request):
     # return HttpResponse("index page")
-    return render(request,'parent/base.html')
+    return render(request, 'parent/base.html')
+
+
 # def post(request):
 #     posts = Post.Published_Manager.all()
 #     paginator = Paginator(posts,2)
@@ -26,6 +31,8 @@ class PostListView(ListView):
     paginate_by = 2
     template_name = 'blog/list.html'
     queryset = Post.Published_Manager.all()
+
+
 # def post_detail(request,id):
 #     # try:
 #     #     post = Post.Published_Manager.get(id=id)
@@ -44,15 +51,18 @@ class PostDetailView(DetailView):
 def ticket(request):
     if request.method == 'POST':
         form = TicketForm(request.POST)
+        print(request.POST)
         if form.is_valid():
-            ticket_obj = Ticket.objects.create()
             cd = form.cleaned_data
-            ticket_obj.message = cd['message']
-            ticket_obj.name = cd['name']
-            ticket_obj.email = cd['email']
-            ticket_obj.subject = cd['subject']
-            ticket_obj.phone = cd['phone']
-            ticket_obj.save()
+            ticket_obj = Ticket.objects.create(name=cd['name'], email=cd['email'],
+                                               message=cd['message'], phone=cd['phone'],
+                                               subject=cd['subject'])
+            # ticket_obj.message = cd['message']
+            # ticket_obj.name = cd['name']
+            # ticket_obj.email = cd['email']
+            # ticket_obj.subject = cd['subject']
+            # ticket_obj.phone = cd['phone']
+            # ticket_obj.save()
             return redirect('blog:index')
     else:
         form = TicketForm()
