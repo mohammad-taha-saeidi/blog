@@ -8,21 +8,21 @@
     <input type="text" name="name" required {% if form.name.value %} value="{{form.name.value}}"{% endif %} >
     <br>
     <label for="email">email : </label>
-    <input type="email" name="email" >
+    <input type="email" name="email" {% if form.email.value %} value="{{form.email.value}}"{% endif %} >
     <br>
 
     <label for="phone">phone : </label>
-    <input type="text" name="phone" >
+    <input type="text" name="phone" {% if form.phone.value %} value="{{form.phone.value}}"{% endif %} maxlength="11">
     <br>
 
     <label for="message">Text : </label>
-    <textarea name="message"></textarea>
+    <textarea name="message">{% if form.name.value %} {{form.name.value}}{% endif %}</textarea>
     <br>
 
     <select name="subject">
-        <option value="گزارش">گزارش</option>
-        <option value="انتقاد">انتقاد</option>
-        <option value="پیشنهاد">پیشنهاد</option>
+        <option value="گزارش" {% if form.subject.value %} selected {% endif %}>گزارش</option>
+        <option value="انتقاد"{% if form.subject.value %} selected {% endif %}>انتقاد</option>
+        <option value="پیشنهاد"{% if form.subject.value %} selected {% endif %}>پیشنهاد</option>
     </select>
 
     <input type="submit" value="Submit">
