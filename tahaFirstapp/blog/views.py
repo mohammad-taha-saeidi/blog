@@ -51,7 +51,7 @@ class PostDetailView(DetailView):
 def ticket(request):
     if request.method == 'POST':
         form = TicketForm(request.POST)
-        print(request.POST)
+
         if form.is_valid():
             cd = form.cleaned_data
             ticket_obj = Ticket.objects.create(name=cd['name'], email=cd['email'],
@@ -66,4 +66,5 @@ def ticket(request):
             return redirect('blog:index')
     else:
         form = TicketForm()
+
     return render(request, 'forms/ticket.html', {'form': form})

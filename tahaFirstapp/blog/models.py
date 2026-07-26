@@ -62,7 +62,23 @@ class Ticket(models.Model):
         return self.subject
 
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    body = models.TextField(verbose_name="پیام")
+    name = models.CharField(max_length=250, verbose_name="اسم")
+    created = jmodels.jDateTimeField(auto_now_add=True, verbose_name="زمان تولید")
+    updated = jmodels.jDateTimeField(auto_now=True, verbose_name="زمان آپدیت")
+    active = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ('created',)
+        indexes = [
+        models.Index(fields=['created']),
+        ]
+        verbose_name = " کامنت ها "
+        verbose_name_plural = verbose_name
+    def __str__(self):
+        return f"{self.name} : {self.post}"
 
 
 

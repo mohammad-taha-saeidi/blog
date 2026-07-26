@@ -1,3 +1,4 @@
+from tokenize import Comment
 
 from django import forms
 from .models import *
@@ -19,9 +20,13 @@ class TicketForm(forms.Form):
         phone = self.cleaned_data['phone']
         if phone:
             if not phone.isnumeric():
-                raise forms.ValidationError("شماره شما به صورت عددی وارد نشده است ")
+                raise forms.ValidationError ("شماره شما به صورت عددی وارد نشده است ")
             elif len(phone) != 11:
                 raise forms.ValidationError("مقدار وارد شده برای شماره تلفن صحیح نمیباشد (11) کاراکتر!!")
             else:
                 return phone
         return None
+# class CommentForm(forms.ModelForm):
+#     class Meta:
+#         model = Comment
+
