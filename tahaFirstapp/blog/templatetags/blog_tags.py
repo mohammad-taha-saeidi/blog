@@ -14,6 +14,6 @@ def total_comments():
     return Comment.objects.count()
 
 
-@register.simple_tag(name="last_post")
+@register.simple_tag(name="lp")
 def last_post():
     return Post.Published_Manager.last()
