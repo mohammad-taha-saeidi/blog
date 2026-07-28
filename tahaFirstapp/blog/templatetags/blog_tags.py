@@ -1,5 +1,5 @@
 from django import template
-from ..blog.models import Post
+from ..models import Post
 register = template.Library()
 @register.simple_tag(name = "tp")
 def total_post():
