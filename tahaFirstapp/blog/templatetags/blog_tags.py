@@ -17,3 +17,7 @@ def total_comments():
 @register.simple_tag(name="lp")
 def last_post():
     return Post.Published_Manager.first().published
+
+@register.simple_tag(name="top")
+def top_post_comments():
+    return Comment.objects.all().order_by('-published_date')[:5]
