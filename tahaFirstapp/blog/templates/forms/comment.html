@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'parent/base.html' %}
 
-</body>
-</html>
+{% block title %}Comment{% endblock title %}
+
+{% block content %}
+
+<div class="comment-page">
+
+    {% if comment %}
+
+        <div class="success-card">
+
+            <div class="success-icon">
+                ✔
+            </div>
+
+            <h2>کامنت شما با موفقیت ثبت شد.</h2>
+
+            <p>
+                ممنون که نظرتون رو با ما به اشتراک گذاشتید.
+            </p>
+
+            <a href="{{ post.get_absolute_url }}" class="back-post-btn">
+                ← بازگشت به صفحه پست
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <div class="comment-form-card">
+
+            <h2>ثبت دیدگاه</h2>
+
+            <form method="POST" action="{% url 'blog:comments' post.id %}">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit" class="submit-btn">
+                    ارسال دیدگاه
+                </button>
+
+            </form>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock content %}

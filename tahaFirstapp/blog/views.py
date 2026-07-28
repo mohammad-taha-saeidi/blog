@@ -1,6 +1,8 @@
 import email
 
 from django.shortcuts import render, HttpResponse, Http404, get_object_or_404, redirect
+from django.utils.translation.trans_real import activate
+
 from .models import *
 from .forms import *
 from datetime import datetime
@@ -34,13 +36,12 @@ class PostListView(ListView):
 
 
 def post_detail(request,id):
-    # try:
-    #     post = Post.Published_Manager.get(id=id)
-    # except:
-    #     raise Http404("Page not found!")
     post = get_object_or_404(Post, id=id , status=Post.Status.PUBLISHED)
+    comments = post.comment.filter(active = True)
+    form = CommentForm()
     context = {'post':post,
-               # 'date_time':datetime.now(),
+               'form':form,
+               'comments':comments,
                }
     return render(request,'blog/detail.html',context)
 # class PostDetailView(DetailView):
@@ -71,14 +72,14 @@ def ticket(request):
 
 
 @require_POST
-def post_comment(request,post_id):
-    post = get_object_or_404(Post, id=post_id , status=Post.Status.PUBLISHED)
+def post_comment(request,id):
+    post = get_object_or_404(Post, id=id , status=Post.Status.PUBLISHED)
     comment = None
-    form = CommentForm(request.POST)
+    form = CommentForm(data = request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post
         comment.save()
 
     context = {'post':post,'form':form,'comment':comment}
-    return render(request,'blog/comment.html',context)
+    return render(request,'forms/comment.html',context)
