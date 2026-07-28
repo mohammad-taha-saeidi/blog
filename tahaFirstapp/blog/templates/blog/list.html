@@ -1,7 +1,10 @@
 {% extends 'parent/base.html' %}
 {% block title %}Post lists{% endblock title %}
 {% block content %}
+
+
 <h1 style="text-align: center">Posts</h1>
+
 <ol style="--length: 2; margin-bottom: 0; padding-bottom: 0;" role="list">
     {% for post in posts %}
     <li style="--i: {{forloop.counter}}">
@@ -13,6 +16,11 @@
     </li>
     {% endfor %}
 </ol>
+<div class="index-decor" style="text-align: center">
+    <a href="{% url 'blog:index' %}" class="back-post-btn">
+    آمار کلی پست ها
+    </a>
+</div>
 <div class="pagination">
     {% include 'partials/paginator.html' with page=page_obj %}
 </div>
