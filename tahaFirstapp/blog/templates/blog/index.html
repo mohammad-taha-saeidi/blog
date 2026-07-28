@@ -1,14 +1,30 @@
 {% extends 'parent/base.html' %}
 {% block title %}index{% endblock title %}
+{% block header %}
+<style>
 
+    .h4index{
+        text-align: center;
+        color: #ec0f0f;
+        display: inline;
+    }
+    p{
+        text-align: center;
+        display: inline;
+    }
+</style>
+{% endblock header %}
 {% block content %}
-<h3>تعداد پست ها</h3>
+<div class="h4">
+<p>1</p>
+<h4 class="h4index">: تعداد پست ها</h4>
+
+<hr>
+<h4 class="h4index">تعداد کامنت ها</h4>
 <p></p>
 <hr>
-<h3>تعداد کامنت ها</h3>
+<h4 class="h4index">تاریخ آخرین پست </h4>
 <p></p>
 <hr>
-<h3>تاریخ آخرین پست </h3>
-<p></p>
-<hr>
+</div>
 {% endblock content %}
