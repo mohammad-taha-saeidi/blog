@@ -33,11 +33,11 @@
     </div>
 
     <div class="comment-section">
-
+        {% with comments.count as cm_count %}
         <h2>
-            💬 {{ comments.count }} Comment{{ comments.count|pluralize }}
+            💬 {{ cm_count }} Comment{{ cm_count|pluralize }}
         </h2>
-
+        {% endwith %}
         {% for comment in comments %}
 
             <div class="comment-card">
