@@ -28,6 +28,14 @@ class TicketForm(forms.Form):
         return None
 class CommentForm(forms.ModelForm):
     class Meta:
+        def clean_phone(self):
+            name = self.cleaned_data['name']
+            if name:
+                if len(name) <3 :
+                    raise forms.ValidationError("نام وارد شده کوتاه است !")
+                else:
+                    return name
+            return None
         model = Comment
         fields = ('name', 'body',)
 
