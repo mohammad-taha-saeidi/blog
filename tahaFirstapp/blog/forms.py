@@ -27,8 +27,7 @@ class TicketForm(forms.Form):
                 return phone
         return None
 class CommentForm(forms.ModelForm):
-    class Meta:
-        def clean_phone(self):
+    def clean_name(self):
             name = self.cleaned_data['name']
             if name:
                 if len(name) <3 :
@@ -36,6 +35,8 @@ class CommentForm(forms.ModelForm):
                 else:
                     return name
             return None
+    class Meta:
+
         model = Comment
         fields = ('name', 'body',)
 
