@@ -1,36 +1,130 @@
 {% extends 'parent/base.html' %}
 {% load blog_tags %}
 {% block title %}index{% endblock title %}
+
 {% block header %}
 <style>
-    .h4{
+    .dashboard-container {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 30px 40px;
+        background: #f9fafc;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
         text-align: center;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
     }
-    .h4index{
-        /*text-align: center;*/
-        color: #ec0f0f;
-        display: inline;
+
+    .stat-item {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 18px 0;
+        border-bottom: 1px solid #eef0f5;
     }
-    p{
-        /*text-align: center;*/
-        display: inline;
+
+    .stat-item:last-of-type {
+        border-bottom: none;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1e2b3c;
+        background: #eef2f7;
+        padding: 0 16px;
+        border-radius: 40px;
+        line-height: 1.4;
+        min-width: 60px;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #3a4a5e;
+        letter-spacing: 0.3px;
+    }
+
+    .stat-label i {
+        margin-left: 6px;
+        color: #b0c0d0;
+    }
+
+    .btn-dashboard {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 12px 34px;
+        background: #1e2b3c;
+        color: #fff;
+        font-weight: 500;
+        font-size: 1rem;
+        border-radius: 40px;
+        text-decoration: none;
+        transition: 0.2s;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .btn-dashboard:hover {
+        background: #2c3d54;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    hr {
+        margin: 0;
+        border: none;
+        border-top: 1px solid #eef0f5;
+    }
+
+    .last-post-date {
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: #1e2b3c;
+        background: #eef2f7;
+        padding: 4px 20px;
+        border-radius: 40px;
+    }
+
+    /* responsiveness */
+    @media (max-width: 500px) {
+        .dashboard-container {
+            padding: 20px 16px;
+        }
+        .stat-number {
+            font-size: 1.6rem;
+            min-width: 50px;
+        }
+        .stat-label {
+            font-size: 1rem;
+        }
     }
 </style>
 {% endblock header %}
-{% block content %}
-<div class="h4">
-<p>{% tp %}</p>
-<h4 class="h4index">: تعداد پست ها</h4>
-    <br>
-<a href="{% url 'blog:post' %}" style="text-decoration: none;" class="back-post-btn">رفتن به صفحه پست ها</a>
-<hr>
-    <p>{% tc %}</p>
-<h4 class="h4index">: تعداد کامنت ها</h4>
 
-<hr>
-    <p>{% lp %}</p>
-<h4 class="h4index"> : تاریخ آخرین پست  </h4>
-<br>
-<hr>
-</div></div>
+{% block content %}
+<div class="dashboard-container">
+
+    <div class="stat-item">
+        <span class="stat-number">{% tp %}</span>
+        <span class="stat-label">تعداد پست‌ها <i>📄</i></span>
+    </div>
+
+    <div class="stat-item">
+        <span class="stat-number">{% tc %}</span>
+        <span class="stat-label">تعداد کامنت‌ها <i>💬</i></span>
+    </div>
+
+    <div class="stat-item">
+        <span class="last-post-date">{% lp %}</span>
+        <span class="stat-label">آخرین پست <i>📅</i></span>
+    </div>
+
+    <a href="{% url 'blog:post' %}" class="btn-dashboard">
+        مشاهده همه پست‌ها
+    </a>
+
+</div>
 {% endblock content %}
