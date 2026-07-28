@@ -13,7 +13,7 @@ from django.views.decorators.http import require_POST
 # Create your views here.
 def index(request):
     # return HttpResponse("index page")
-    return render(request, 'parent/base.html')
+    return render(request, 'blog/index.html')
 
 
 # def post(request):
