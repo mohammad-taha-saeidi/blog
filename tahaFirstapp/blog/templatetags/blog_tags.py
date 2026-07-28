@@ -16,4 +16,4 @@ def total_comments():
 
 @register.simple_tag(name="lp")
 def last_post():
-    return Post.Published_Manager.last()
+    return Post.Published_Manager.first().published
