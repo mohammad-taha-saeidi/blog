@@ -40,7 +40,7 @@ def post_detail(request,id):
     comments = post.comment.filter(active = True)
     form = CommentForm()
     context = {'post':post,
-               'form':form,
+               'form':form, 
                'comments':comments,
                }
     return render(request,'blog/detail.html',context)
