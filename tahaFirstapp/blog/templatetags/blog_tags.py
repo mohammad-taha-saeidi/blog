@@ -18,6 +18,17 @@ def total_comments():
 def last_post():
     return Post.Published_Manager.first().published
 
-@register.simple_tag(name="top")
-def top_post_comments():
-    return Comment.objects.all().order_by('-published_date')[:5]
+# @register.simple_tag(name="top")
+# def top_post_comments():
+#     for post in Post.Published_Manager.all():
+#         i = post
+#         if post.comment.count()>
+@register.inclusion_tag("partials/latest_posts.html" , name="lpt")
+def latest_posts(count=5):
+    l_post = Post.Published_Manager.order_by('-published')[:count]
+    context = {
+        'l_post': l_post,
+    }
+    return context
+
+
