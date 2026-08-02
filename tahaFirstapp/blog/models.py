@@ -32,6 +32,7 @@ class Post(models.Model):
                               default=Status.DRAFT
                               , verbose_name=" وضعیت پست"
                               )
+    reading_time = models.PositiveIntegerField(default=0 , verbose_name="زمان مطالعه")
 
     # objects = models.Manager()
     objects = jmodels.jManager()
