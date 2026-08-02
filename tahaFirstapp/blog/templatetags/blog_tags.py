@@ -19,9 +19,7 @@ def total_comments():
 @register.simple_tag(name="lp")
 def last_post():
     return Post.Published_Manager.first().published
-@register.simple_tag(name="mc")
-def most_comments():
-    return Comment.post
+
 # @register.simple_tag(name="top")
 # def top_post_comments():
 #     for post in Post.Published_Manager.all():
