@@ -1,5 +1,5 @@
 from unicodedata import name
-
+from django.db.models import Count
 from django import template
 from ..models import Post, Comment
 
@@ -19,7 +19,10 @@ def total_comments():
 @register.simple_tag(name="lp")
 def last_post():
     return Post.Published_Manager.first().published
+@register.simple_tag(name="mc")
+def most_comment(ct = 5):
 
+    return Post.Published_Manager.annotate(comments_count=Count("comment")).order_by('-comments_count')[:ct]
 # @register.simple_tag(name="top")
 # def top_post_comments():
 #     for post in Post.Published_Manager.all():
