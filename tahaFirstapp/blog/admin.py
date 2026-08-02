@@ -12,7 +12,7 @@ admin.sites.AdminSite.index_title = "دسته بندی ها"
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'published', 'status',)
+    list_display = ('title', 'author', 'published', 'status',"reading_time",)
     ordering = ('-published',)
     list_filter = ('status', ('published',JDateFieldListFilter), 'author', )
     search_fields = ('title', 'description')
