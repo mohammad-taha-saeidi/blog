@@ -19,10 +19,14 @@ def total_comments():
 @register.simple_tag(name="lp")
 def last_post():
     return Post.Published_Manager.first().published
-@register.simple_tag(name="mc")
-def most_comment(ct = 5):
+@register.inclusion_tag("partials/most_comment.html" ,name="cm")
+def most_popular_posts(count=5):
+    post_comments = Post.Published_Manager.annotate(comment_count=Count("comment")).order_by('-comment_count')[:count]
 
-    return Post.Published_Manager.annotate(comments_count=Count("comment")).order_by('-comments_count')[:ct]
+    context = {
+        'post_comments': post_comments,
+    }
+    return context
 # @register.simple_tag(name="top")
 # def top_post_comments():
 #     for post in Post.Published_Manager.all():
