@@ -1,153 +1,175 @@
-{% load blog_tags %}
-<!DOCTYPE html>
+<!--<div>-->
+<!--        <h2>-->
+<!--            محبوب ترین پست ها-->
 
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آخرین پست‌ها</title>
-    <style>
-        /* استایل کلی بخش */
-        .latest-posts {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px 28px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            max-width: 650px;
-            margin: 40px auto;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: all 0.3s ease;
-            border: 1px solid #f1f5f9;
-        }
+<!--        </h2>-->
 
-        /* استایل تیتر */
-        .latest-posts h2 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #0f172a;
-            margin-top: 0;
-            margin-bottom: 22px;
-            padding-bottom: 14px;
-            border-bottom: 4px solid #4f46e5;
-            display: inline-block;
-            letter-spacing: -0.5px;
-            position: relative;
-        }
 
-        /* افکت زیرخط تیتر */
-        .latest-posts h2::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 60%;
-            height: 4px;
-            background: #818cf8;
-            border-radius: 4px;
-        }
+<!--        {% for post in post_comments %}-->
+<!--            <a href="{{ post.get_absolute_url }}">-->
+<!--                {{ post.title }} : {{post.comment_count}}-->
+<!--            </a>-->
+<!--        <br>-->
+<!--        {% empty %}-->
+<!--            <p style="color: #94a3b8; text-align: center; padding: 20px 0;">-->
+<!--                😕 هنوز کامنتی منتشر نشده است.-->
+<!--            </p>-->
+<!--        {% endfor %}-->
 
-        /* استایل هر لینک (پست) */
-        .latest-posts a {
-            display: block;
-            padding: 14px 18px;
-            margin-bottom: 8px;
-            color: #1e293b;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            border-radius: 10px;
-            background: #f8fafc;
-            transition: all 0.25s ease;
-            border-right: 4px solid transparent;
-            position: relative;
-            padding-right: 44px;
-        }
+<!--</div>-->
+<style>
+ /* ===== ویجت محبوب‌ترین پست‌ها ===== */
+.popular-posts-widget {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-radius: 20px;
+    padding: 24px 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    transition: all 0.3s ease;
+    max-width: 500px;
+    margin: 0 auto;  /* ← وسط‌چینی کل ویجت */
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    text-align: center;  /* ← متن‌ها وسط */
+}
 
-        /* آیکون شماره‌دار قبل از هر لینک */
-        .latest-posts a::before {
-            content: "📄";
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            opacity: 0.7;
-        }
+.popular-posts-widget:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+}
 
-        /* هاور لینک‌ها */
-        .latest-posts a:hover {
-            background: #eef2ff;
-            border-right-color: #4f46e5;
-            transform: translateX(-6px);
-            color: #4f46e5;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
-        }
+.popular-posts-widget__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 20px 0;
+    padding-bottom: 14px;
+    border-bottom: 2.5px dashed #e2e8f0;
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* ← وسط‌چینی عنوان */
+    gap: 10px;
+}
 
-        /* مخفی کردن برچسب‌های <br> */
-        .latest-posts br {
-            display: none;
-        }
+.popular-posts-widget__title-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
 
-        /* استایل برای لینک آخر (حذف margin-bottom) */
-        .latest-posts a:last-child {
-            margin-bottom: 0;
-        }
+.popular-posts-widget__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;  /* ← آیتم‌ها وسط */
+}
 
-        /* استایل برای نمایش تعداد پست‌ها (اختیاری) */
-        .latest-posts .post-count {
-            display: inline-block;
-            background: #eef2ff;
-            color: #4f46e5;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 2px 12px;
-            border-radius: 20px;
-            margin-right: 10px;
-        }
+.popular-posts-widget__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 12px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #1e293b;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    gap: 16px;
+    width: 100%;  /* ← عرض کامل برای چیدمان بهتر */
+    max-width: 420px;  /* ← حداکثر عرض برای زیبایی */
+}
 
-        /* ریسپانسیو برای موبایل */
-        @media (max-width: 600px) {
-            .latest-posts {
-                padding: 18px 16px;
-                margin: 20px 12px;
-            }
+.popular-posts-widget__item:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    transform: translateX(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
 
-            .latest-posts h2 {
-                font-size: 20px;
-            }
+.popular-posts-widget__item-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
+    text-align: right;
+}
 
-            .latest-posts a {
-                font-size: 14px;
-                padding: 12px 14px;
-                padding-right: 40px;
-            }
+.popular-posts-widget__item-badge {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 40px;
+    min-width: 28px;
+    text-align: center;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
 
-            .latest-posts a::before {
-                font-size: 16px;
-                right: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
+.popular-posts-widget__item:hover .popular-posts-widget__item-badge {
+    transform: scale(1.08);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+}
 
-    <div class="latest-posts">
-        <h2>
-            📝 آخرین پست‌ها
-            <span class="post-count">{% cp %}</span>
-        </h2>
+.popular-posts-widget__empty {
+    color: #94a3b8;
+    text-align: center;
+    padding: 28px 0;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    border-radius: 14px;
+    border: 1.5px dashed #e2e8f0;
+    margin: 0;
+    width: 100%;
+    max-width: 420px;
+}
 
-        {% for post in l_post %}
-            <a href="{{ post.get_absolute_url }}">
-                {{ post.title }}
+/* ===== ریسپانسیو ===== */
+@media (max-width: 480px) {
+    .popular-posts-widget {
+        padding: 18px 14px;
+        border-radius: 16px;
+        margin: 0 10px;  /* ← فاصله از لبه‌های موبایل */
+    }
+
+    .popular-posts-widget__title {
+        font-size: 1.1rem;
+    }
+
+    .popular-posts-widget__item {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+        max-width: 100%;
+    }
+
+    .popular-posts-widget__empty {
+        max-width: 100%;
+    }
+}
+</style>
+<div class="popular-posts-widget">
+    <h2 class="popular-posts-widget__title">
+        محبوب ترین پست ها
+    </h2>
+
+    <div class="popular-posts-widget__list">
+        {% for post in post_comments %}
+            <a href="{{ post.get_absolute_url }}" class="popular-posts-widget__item">
+                <span class="popular-posts-widget__item-title">{{ post.title }}</span>
+                <span class="popular-posts-widget__item-badge">
+                    {{ post.comment_count }}
+                </span>
             </a>
         {% empty %}
-            <p style="color: #94a3b8; text-align: center; padding: 20px 0;">
-                😕 هنوز پستی منتشر نشده است.
+            <p class="popular-posts-widget__empty">
+                😕 هنوز کامنتی منتشر نشده است.
             </p>
         {% endfor %}
-
     </div>
-
-</body>
-</html>
+</div>
