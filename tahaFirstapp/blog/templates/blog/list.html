@@ -5,7 +5,7 @@
 
 <h1 style="text-align: center">Posts</h1>
 
-<ol style="--length: 2; margin-bottom: 0; padding-bottom: 0;" role="list">
+<ol style="--length: {{posts|length}}; margin-bottom: 0; padding-bottom: 0;" role="list">
     {% for post in posts %}
     <li style="--i: {{forloop.counter}}">
 
