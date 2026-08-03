@@ -83,3 +83,23 @@ def post_comment(request,id):
 
     context = {'post':post,'form':form,'comment':comment}
     return render(request,'forms/comment.html',context)
+def postForm(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+
+        if form.is_valid():
+            cd = form.cleaned_data
+            ticket_obj = Post.objects.create(title=cd['title'], description=cd['description'],
+                                               slug=cd['slug'],status=cd['status'],
+                                               )
+            # ticket_obj.message = cd['message']
+            # ticket_obj.name = cd['name']
+            # ticket_obj.email = cd['email']
+            # ticket_obj.subject = cd['subject']
+            # ticket_obj.phone = cd['phone']
+            # ticket_obj.save()
+            return redirect('blog:index')
+    else:
+        form = PostForm()
+
+    return render(request, 'forms/postForm.html', {'form': form})
