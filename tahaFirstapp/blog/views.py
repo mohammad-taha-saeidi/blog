@@ -30,7 +30,7 @@ def index(request):
 #     return render(request,'blog/list.html',context)
 class PostListView(ListView):
     context_object_name = 'posts'
-    paginate_by = 2
+    paginate_by = 3
     template_name = 'blog/list.html'
     queryset = Post.Published_Manager.all()
 
