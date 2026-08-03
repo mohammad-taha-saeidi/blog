@@ -89,7 +89,7 @@ def postForm(request):
 
         if form.is_valid():
             cd = form.cleaned_data
-            ticket_obj = Post.objects.create(title=cd['title'], description=cd['description'],
+            ticket_obj = Post.objects.create(author=cd['author'],title=cd['title'], description=cd['description'],
                                                slug=cd['slug'],status=cd['status'],
                                                )
             # ticket_obj.message = cd['message']
