@@ -41,7 +41,7 @@ def latest_posts(count=5):
     return context
 #
 @register.inclusion_tag("partials/count_post.html" ,name="cp")
-def latest_posts(count=5):
+def count_latest_posts(count=5):
     count_post = Post.Published_Manager.order_by('-published')[:count].count()
     context = {
         'count_post': count_post,
