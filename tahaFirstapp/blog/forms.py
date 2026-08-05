@@ -13,22 +13,30 @@ class PostForm(forms.ModelForm):
         #     ('Draft', 'Draft'),
         # )
         # status = forms.ChoiceField(choices=STATUS_CHOICES)
-        fields = ('author','title', 'description', 'slug',)
-    def clean_post(self):
+        fields = ('author','title', 'description', 'slug','reading_time',)
+
+    def clean_title(self):
         title = self.cleaned_data['title']
-        description = self.cleaned_data['description']
-        slug = self.cleaned_data['slug']
-        if title and description and slug:
-            if len(title) > 250   :
-                raise forms.ValidationError("تایتل نباید بیشتر از 250 کاراکتر باشد")
-            elif len(title) < 5:
-                raise forms.ValidationError("تایتل نباید کمتر از 5 کاراکتر باشد")
-            elif len(slug) > 250 :
-                raise forms.ValidationError("اسلاگ نباید بیشتر از 250 کاراکتر باشد")
-            elif len(slug) < 5:
-                raise forms.ValidationError("اسلاگ نباید کمتر از 5 کاراکتر باشد")
-            return title,description,slug
+        if title:
+            if len(title) < 3:
+                raise forms.ValidationError("نام وارد شده کوتاه است !")
+            elif len(title) > 25:
+                raise forms.ValidationError("نام وارد شده بلند است !")
+            else:
+                return title
         return None
+    def clean_slug(self):
+        slug = self.cleaned_data['slug']
+        if slug:
+            if len(slug) < 3:
+                raise forms.ValidationError("اسلاگ وارد شده کوتاه است !")
+            elif len(slug) > 25:
+                raise forms.ValidationError("اسلاگ وارد شده بلند است !")
+            else:
+                return slug
+        return None
+
+
 
 #ticket form
 class TicketForm(forms.Form):
