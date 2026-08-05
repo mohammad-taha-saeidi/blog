@@ -25,26 +25,30 @@ Postform
     <label for="slug">slug : </label>
     <input type="text" name="slug" {% if form.slug.value %} value="{{form.slug.value}}"{% endif %} maxlength="11">
     <br>
+            <label for="reading_time">reading_time : </label>
+    <input type="text" name="reading_time" {% if form.reading_time.value %} value="{{form.reading_time.value}}"{% endif %} maxlength="11">
+    <br>
 
 
 
 
 
     <input type="submit" value="Submit">
-</form>
-        {% if form.errors %}
+            {% if form.errors %}
         <p >لطفا خطا های زیر را اصلاح کنید</p>
         <br>
         <p style="color: red">
             {% for field in form %}
-            {% if field.errors %}
-            {% for error in field.errors %}
-        <p>{{ field.label }} : {{ error }}</p>
-        {% endfor %}
-        {% endif %}
-        {% endfor %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p>{{ field.label }} : {{ error }}</p>
+                     {% endfor %}
+                {% endif %}
+            {% endfor %}
         </p>
         {% endif %}
+</form>
+
     </div>
 </head>
 <body>
