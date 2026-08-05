@@ -77,7 +77,7 @@ def post_comment(request,id):
     comment= None
     form = CommentForm(request.POST)
     if form.is_valid():
-        comment = form.save(commit=False)
+        comments = form.save(commit=False)
         comment.post = post
         comment.save()
 
