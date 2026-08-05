@@ -74,7 +74,7 @@ def ticket(request):
 @require_POST
 def post_comment(request,id):
     post = get_object_or_404(Post, id=id , status=Post.Status.PUBLISHED)
-    comments = None
+    comment = None
     form = CommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
