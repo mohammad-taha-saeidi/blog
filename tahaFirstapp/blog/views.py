@@ -1,8 +1,8 @@
 import email
 
-from django.shortcuts import render, HttpResponse, Http404, get_object_or_404, redirect
-from django.utils.translation.trans_real import activate
+from django.shortcuts import render, get_object_or_404, redirect
 
+from django.contrib.auth.models import User
 from .models import *
 from .forms import *
 from datetime import datetime
@@ -75,7 +75,7 @@ def ticket(request):
 def post_comment(request,id):
     post = get_object_or_404(Post, id=id , status=Post.Status.PUBLISHED)
     comment = None
-    form = CommentForm(data = request.POST)
+    form = CommentForm(request.POST)
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post
@@ -90,7 +90,7 @@ def postForm(request):
         if form.is_valid():
             cd = form.cleaned_data
             ticket_obj = Post.objects.create(author=cd['author'],title=cd['title'], description=cd['description'],
-                                               slug=cd['slug'],status=cd['status'],
+                                               slug=cd['slug'],
                                                )
             # ticket_obj.message = cd['message']
             # ticket_obj.name = cd['name']

@@ -2,6 +2,7 @@ from unicodedata import name
 from django.db.models import Count
 from django import template
 from ..models import Post, Comment
+from django.contrib.auth.models import User
 
 register = template.Library()
 
@@ -45,5 +46,15 @@ def count_latest_posts(count=5):
     count_post = Post.Published_Manager.order_by('-published')[:count].count()
     context = {
         'count_post': count_post,
+    }
+    return context
+
+@register.inclusion_tag("partials/authors.html" ,name="aut")
+def authors():
+    users = User.objects.all()
+    id = User.objects.all().values_list('id', flat=True)
+    context = {
+        'users': users,
+        'id': id,
     }
     return context

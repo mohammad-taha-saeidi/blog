@@ -267,8 +267,9 @@ form {
     <input type="submit" value="Submit">
 </form>
 {% if form.errors %}
-    <p>لطفا خطا های زیر را اصلاح کنید</p>
+    <p style="co">لطفا خطا های زیر را اصلاح کنید</p>
     <br>
+    <p style="color: red">
     {% for field in form %}
         {% if field.errors %}
             {% for error in field.errors %}
@@ -276,6 +277,7 @@ form {
             {% endfor %}
         {% endif %}
     {% endfor %}
+</p>
 {% endif %}
 {% endblock content %}
 

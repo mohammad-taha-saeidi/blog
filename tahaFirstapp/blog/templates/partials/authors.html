@@ -1,0 +1,22 @@
+{% load blog_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form  method="post">
+
+
+     {% for usr in users %}
+
+        <option value="{{ usr.id }}" >{{ usr.first_name}}</option>
+
+    {% endfor %}
+
+
+</form>
+
+</body>
+</html>

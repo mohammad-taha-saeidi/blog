@@ -7,7 +7,29 @@ from .models import *
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('author','title', 'description', 'slug', 'status',)
+        # STATUS_CHOICES = (
+        #     ('Published', 'Published'),
+        #     ('Rejected', 'Rejected'),
+        #     ('Draft', 'Draft'),
+        # )
+        # status = forms.ChoiceField(choices=STATUS_CHOICES)
+        fields = ('author','title', 'description', 'slug',)
+    def clean_post(self):
+        title = self.cleaned_data['title']
+        description = self.cleaned_data['description']
+        slug = self.cleaned_data['slug']
+        if title and description and slug:
+            if len(title) > 250   :
+                raise forms.ValidationError("تایتل نباید بیشتر از 250 کاراکتر باشد")
+            elif len(title) < 5:
+                raise forms.ValidationError("تایتل نباید کمتر از 5 کاراکتر باشد")
+            elif len(slug) > 250 :
+                raise forms.ValidationError("اسلاگ نباید بیشتر از 250 کاراکتر باشد")
+            elif len(slug) < 5:
+                raise forms.ValidationError("اسلاگ نباید کمتر از 5 کاراکتر باشد")
+            return title,description,slug
+        return None
+
 #ticket form
 class TicketForm(forms.Form):
     SUBJECT_CHOICES = (
