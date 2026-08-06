@@ -7,12 +7,7 @@
     margin: 30px 0;
     flex-wrap: wrap;
 }
-.web{
-    color: red;
-    text-align: center;
-    width: 44px;
-    height: 90px;
-}
+
 /* همه لینک‌های داخل paginator */
 .custom-paginator a {
     color: #007bff !important;
