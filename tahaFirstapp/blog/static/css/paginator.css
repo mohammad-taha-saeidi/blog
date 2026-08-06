@@ -7,7 +7,6 @@
     margin: 30px 0;
     flex-wrap: wrap;
 }
-
 /* همه لینک‌های داخل paginator */
 .custom-paginator a {
     color: #007bff !important;
