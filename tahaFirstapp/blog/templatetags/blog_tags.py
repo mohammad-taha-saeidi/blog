@@ -71,3 +71,14 @@ def most_reading_time_posts():
     }
     return context
 
+@register.inclusion_tag("partials/most_min_reading_time_post.html",name="mr")
+def most_reading_time_posts():
+    # most_reading_time = Post.Published_Manager.aggregate(Max('reading_time')).get("reading_time__max")
+    most_reading_time = Post.Published_Manager.annotate(reading_time_count=Max("reading_time")).order_by('-reading_time_count')[0]
+    time = Post.Published_Manager.get(id=most_reading_time.id).reading_time
+
+    context = {
+        'mrt': most_reading_time,
+        'time': time,
+    }
+    return context
