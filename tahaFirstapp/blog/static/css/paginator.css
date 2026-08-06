@@ -11,6 +11,7 @@
     color: red;
     text-align: center;
     width: 44px;
+    height: 90px;
 }
 /* همه لینک‌های داخل paginator */
 .custom-paginator a {
