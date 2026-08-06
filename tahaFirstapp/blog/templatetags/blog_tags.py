@@ -1,8 +1,9 @@
 from unicodedata import name
-from django.db.models import Count
+from django.db.models import Count,Max
 from django import template
 from ..models import Post, Comment
 from django.contrib.auth.models import User
+# from django.db.models import Max
 
 register = template.Library()
 
@@ -58,3 +59,12 @@ def authors():
         'id': id,
     }
     return context
+@register.inclusion_tag("partials/most_reading_time_post.html",name="mr")
+def most_reading_time_posts():
+    # most_reading_time = Post.Published_Manager.aggregate(Max('reading_time')).get("reading_time__max")
+    most_reading_time = Post.Published_Manager.annotate(reading_time_count=Max("reading_time")).order_by('-reading_time_count')
+    context = {
+        'mrt': most_reading_time,
+    }
+    return context
+
