@@ -3,6 +3,9 @@ from unicodedata import name
 import re
 from django.db.models import Count,Max,Min
 from django import template
+
+from . import bad_words
+from .bad_words import BAD_WORDS
 from ..models import Post, Comment
 from django.contrib.auth.models import User
 # from django.db.models import Max
@@ -85,9 +88,7 @@ def min_most_reading_time_posts():
     return context
 
 #bad words :
-BAD_WORDS = [
-    "خر","احمق","اسکل"
-]
+BAD_WORDS = bad_words.BAD_WORDS
 #cesor description text
 @register.filter(name = "censor", is_safe=True)
 def censor_text(value):
