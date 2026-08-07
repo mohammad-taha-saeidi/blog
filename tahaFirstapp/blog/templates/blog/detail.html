@@ -1,7 +1,7 @@
 {% extends 'parent/base.html' %}
 {% load jformat %}
 {% load static %}
-
+{% load blog_tags %}
 {% block title %}{{ post.title }}{% endblock title %}
 {% block header %}
     <link rel="stylesheet" href = "{% static 'css/comment.css' %}">
@@ -23,7 +23,7 @@
         <hr>
 
         <div class="post-body">
-            {{ post.description|linebreaks }}
+            {{ post.description|linebreaks|censor|safe }}
         </div>
 
         <a href="{% url 'blog:post' %}" class="back-btn">
