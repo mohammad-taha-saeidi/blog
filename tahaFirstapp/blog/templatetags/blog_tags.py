@@ -1,4 +1,6 @@
+from idlelib import replace
 from unicodedata import name
+import re
 from django.db.models import Count,Max,Min
 from django import template
 from ..models import Post, Comment
@@ -81,3 +83,20 @@ def min_most_reading_time_posts():
         'time': time,
     }
     return context
+
+#bad words :
+BAD_WORDS = [
+    "خر","احمق","اسکل"
+]
+#cesor description text
+@register.filter(name = "censor", is_safe=True)
+def censor_text(value):
+    if value:
+        for word in BAD_WORDS:
+            #جایگزینی با ستاره به اندازه تعداد کلمات
+            pattern = re.compile(re.escape(word), re.IGNORECASE)
+            replacement = "*"*len(word)
+            value = re.sub(pattern,replacement, value)
+        return value
+    else:
+        return value
