@@ -1,6 +1,7 @@
 {% extends 'parent/base.html' %}
 {% block title %}Post lists{% endblock title %}
 {% block content %}
+{% load blog_tags %}
 
 
 <h1 style="text-align: center">Posts</h1>
@@ -12,7 +13,7 @@
         <a href="{{post.get_absolute_url}}" style="text-decoration: none;">
             <h3>{{ post.title }}</h3>
         </a>
-        <p>{{ post.description | truncatewords:5 }}</p>
+        <p>{{ post.description | truncatewords:5 |censor }}</p>
     </li>
     {% endfor %}
 </ol>
