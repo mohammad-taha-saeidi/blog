@@ -101,3 +101,26 @@ def censor_text(value):
         return value
     else:
         return value
+
+
+@register.inclusion_tag("partials/active_author.html" ,name="active-author")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
